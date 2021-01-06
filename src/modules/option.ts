@@ -261,11 +261,12 @@ export function createGruntOption(source: any, grunt: IGrunt, gruntFile: grunt.f
         generateTsConfig: prepareGenerateTsConfig(source),
         tsOptions: {
             removeComments: boolOrUndef(source, "removeComments"),
+            allowJs: boolOrUndef(source, "allowJs"),
             sourceMap: boolOrUndef(source, "sourceMap"),
             declaration: boolOrUndef(source, "declaration"),
             out: singleFile ? dest : undefined,
             outDir: singleFile ? undefined:
-                    keepDirectoryHierarchy ? undefined: dest,
+                keepDirectoryHierarchy ? undefined: dest,
             noLib: boolOrUndef(source, "noLib"),
             noImplicitAny: boolOrUndef(source, "noImplicitAny"),
             noResolve: boolOrUndef(source, "noResolve"),

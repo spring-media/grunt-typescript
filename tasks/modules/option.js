@@ -228,6 +228,7 @@ function createGruntOption(source, grunt, gruntFile, logger) {
         generateTsConfig: prepareGenerateTsConfig(source),
         tsOptions: {
             removeComments: boolOrUndef(source, "removeComments"),
+            allowJs: boolOrUndef(source, "allowJs"),
             sourceMap: boolOrUndef(source, "sourceMap"),
             declaration: boolOrUndef(source, "declaration"),
             out: singleFile ? dest : undefined,

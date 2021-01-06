@@ -3,7 +3,7 @@
   "reviver": "René Baudisch",
   "name": "grunt-typescript",
   "description": "compile typescript to javascript",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "homepage": "https://github.com/spring-media/grunt-typescript",
   "repository": {
     "type": "git",
