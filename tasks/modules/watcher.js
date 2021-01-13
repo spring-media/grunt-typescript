@@ -1,4 +1,7 @@
+"use strict";
 ///<reference path="../../typings/node.d.ts" />
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createWatcher = void 0;
 var util = require("./util");
 var _path = require("path"), _fs = require("fs");
 function createWatcher(watchPaths, callback) {
@@ -19,7 +22,7 @@ function createWatcher(watchPaths, callback) {
         });
     }
     function add(path, eventName, stats) {
-        if (_path.extname(path) !== ".ts") {
+        if (_path.extname(path) !== ".ts" || _path.extname(path) !== ".tsx") {
             return;
         }
         path = util.normalizePath(path);

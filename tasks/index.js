@@ -1,7 +1,7 @@
+"use strict";
 ///<reference path="../typings/typescript.d.ts" />
 ///<reference path="../typings/node.d.ts" />
 ///<reference path="../typings/grunt.d.ts" />
-///<reference path="../typings/bluebird.d.ts" />
 var gts = require("./modules/task");
 var Promise = require("bluebird");
 var compiler = require("./modules/compiler");

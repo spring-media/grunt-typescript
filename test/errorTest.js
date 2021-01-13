@@ -37,7 +37,7 @@ module.exports.errorTypescript = {
         test.expect(1);
 
         exec(["typescript:errorTypecheck", "--error"], function(results){
-            test.equal(">> ".red + "test/fixtures/error-typecheck.ts(1,1): error TS2304: Cannot find name 'foo'.", trim(results[0]));
+            test.equal(">> test/fixtures/error-typecheck.ts(1,1): error TS2304: Cannot find name 'foo'.", trim(results[0]));
 
             //console.log(results[0].trim());
 
@@ -49,7 +49,7 @@ module.exports.errorTypescript = {
         "use strict";
         test.expect(1);
         exec(["typescript:errorSyntax", "--error"], function(results){
-            test.equal(">> ".red + "test/fixtures/error-syntax.ts(1,9): error TS1005: ';' expected.", trim(results[0]));
+            test.equal(">> test/fixtures/error-syntax.ts(1,9): error TS1005: ';' expected.", trim(results[0]));
             test.done();
         });
     },
@@ -60,14 +60,14 @@ module.exports.errorTypescript = {
         test.expect(8);
 
         exec(["typescript:noLib", "--error"], function(results){
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'Array'.", trim(results[0]));
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'Boolean'.", trim(results[1]));
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'Function'.", trim(results[2]));
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'IArguments'.", trim(results[3]));
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'Number'.", trim(results[4]));
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'Object'.", trim(results[5]));
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'RegExp'.", trim(results[6]));
-            test.equal(">> ".red + "error TS2318: Cannot find global type 'String'.", trim(results[7]));
+            test.equal(">> error TS2318: Cannot find global type 'Array'.", trim(results[0]));
+            test.equal(">> error TS2318: Cannot find global type 'Boolean'.", trim(results[1]));
+            test.equal(">> error TS2318: Cannot find global type 'Function'.", trim(results[2]));
+            test.equal(">> error TS2318: Cannot find global type 'IArguments'.", trim(results[3]));
+            test.equal(">> error TS2318: Cannot find global type 'Number'.", trim(results[4]));
+            test.equal(">> error TS2318: Cannot find global type 'Object'.", trim(results[5]));
+            test.equal(">> error TS2318: Cannot find global type 'RegExp'.", trim(results[6]));
+            test.equal(">> error TS2318: Cannot find global type 'String'.", trim(results[7]));
             test.done();
         });
     },
@@ -78,7 +78,7 @@ module.exports.errorTypescript = {
         test.expect(1);
 
         exec(["typescript:noLibCore", "--error"], function(results){
-            test.equal(">> ".red + "test/fixtures/noLib.ts(4,10): error TS2304: Cannot find name 'document'.", trim(results[0]));
+            test.equal(">> error TS2318: Cannot find global type 'Array'.", trim(results[0]));
 
             test.done();
         });

@@ -147,7 +147,7 @@ export function writeFile(fileName: string, data: string, writeByteOrderMark?: b
         data = '\uFEFF' + data;
     }
 
-    _fs.writeFileSync(fileName, data, "utf8");
+    _fs.writeFileSync(fileName, data, {encoding: "utf8"});
 }
 
 export function abs(fileName: string): string{

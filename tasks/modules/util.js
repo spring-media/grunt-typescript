@@ -1,4 +1,7 @@
+"use strict";
 ///<reference path="../../typings/node.d.ts" />
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.writeWarn = exports.writeInfo = exports.writeError = exports.writeAbort = exports.write = exports.relativePath = exports.getCurrentDirectory = exports.createDirectoryRecurse = exports.createDirectory = exports.dirOrFileExists = exports.directoryExists = exports.fileExists = exports.abs = exports.writeFile = exports.readFile = exports.getDirectoryPath = exports.combinePaths = exports.normalizePath = exports.normalizeSlashes = exports.getRootLength = exports.hasProperty = exports.getBinDir = exports.isUndef = exports.isArray = exports.isBool = exports.isStr = void 0;
 var _path = require("path"), _fs = require("fs"), _os = require("os");
 /**
  * string 型かどうか
@@ -77,8 +80,8 @@ var directorySeparator = "/";
 function getNormalizedParts(normalizedSlashedPath, rootLength) {
     var parts = normalizedSlashedPath.substr(rootLength).split(directorySeparator);
     var normalized = [];
-    for (var _i = 0; _i < parts.length; _i++) {
-        var part = parts[_i];
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
         if (part !== ".") {
             if (part === ".." && normalized.length > 0 && normalized[normalized.length - 1] !== "..") {
                 normalized.pop();
@@ -150,7 +153,7 @@ function writeFile(fileName, data, writeByteOrderMark) {
     if (writeByteOrderMark) {
         data = '\uFEFF' + data;
     }
-    _fs.writeFileSync(fileName, data, "utf8");
+    _fs.writeFileSync(fileName, data, { encoding: "utf8" });
 }
 exports.writeFile = writeFile;
 function abs(fileName) {

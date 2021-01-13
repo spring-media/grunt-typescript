@@ -55,9 +55,7 @@ module.exports = function(grunt){
             es6:{
                 src:"test/fixtures/es6.ts",
                 options:{
-                    target:"ES6",
-                    noLib: true,
-                    references: "core"
+                    target:"ES6"
                 }
             },
             amd:{
@@ -161,13 +159,6 @@ module.exports = function(grunt){
                 options: {
                     noLib: true,
                     references: ["core", "test/libs/**/*.d.ts"]
-                }
-            },
-            "noLib safe": {
-                src: "test/fixtures/noLib.ts",
-                options: {
-                    noLib: true,
-                    references: ["dom"]
                 }
             },
             "noLib": grunt.option("error") ? {
@@ -359,7 +350,7 @@ module.exports = function(grunt){
             return execTsc("React Jsx", "test/fixtures/jsxreact.tsx --jsx react");
         }).then(function(){
             grunt.file.copy("test/fixtures/jsxreact.js", "test/expected/jsxreact.js");
-            return execTsc("Async", "test/fixtures/async.ts --experimentalAsyncFunctions -t ES6");
+            return execTsc("Async", "test/fixtures/async.ts -t ES6");
         }).then(function(){
             grunt.file.copy("test/fixtures/async.js", "test/expected/async.js");
             done(true);

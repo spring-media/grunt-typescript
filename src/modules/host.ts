@@ -2,7 +2,6 @@
 ///<reference path="../../typings/node.d.ts" />
 ///<reference path="../../typings/grunt.d.ts" />
 ///<reference path="./util.ts" />
-///<reference path="../../typings/bluebird.d.ts" />
 ///<reference path="./task.ts" />
 
 import * as ts from "typescript";
@@ -13,7 +12,7 @@ import * as option from "./option";
 let _path: NodeJS.Path = require("path"),
 	_fs: NodeJS.FileSystem = require("fs"),
 	_os: NodeJS.OS = require("os"),
-    existingDirectories: ts.Map<boolean> = {};
+    existingDirectories: {} = {};
 
 
 
@@ -253,7 +252,7 @@ export function createHost(grunt: IGrunt, options: gts.CompilerOptions, logger: 
         getSourceFile,
         getDefaultLibFileName: (options: ts.CompilerOptions) => {
             logger.verbose(`bin dir = ${util.getBinDir()}`);
-            return util.combinePaths(util.getBinDir(), options.target === ts.ScriptTarget.ES6 ? "lib.es6.d.ts" : "lib.d.ts");
+            return util.combinePaths(util.getBinDir(), options.target === ts.ScriptTarget.ES2015 ? "lib.es6.d.ts" : "lib.d.ts");
         },
         writeFile,
         getCurrentDirectory: () => util.getCurrentDirectory(),

@@ -1,5 +1,8 @@
+"use strict";
 ///<reference path="../../typings/grunt.d.ts" />
 ///<reference path="./task.ts" />
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createGruntOption = void 0;
 var util = require("./util");
 var ts = require("typescript");
 var _path = require("path"), _fs = require("fs");
@@ -103,36 +106,36 @@ function checkBasePath(opt) {
     return result;
 }
 function prepareTarget(opt) {
-    var result = 0 /* ES3 */;
+    var result = ts.ScriptTarget.ES3;
     if (opt.target) {
         var temp = (opt.target + "").toLowerCase();
         if (temp === 'es3') {
-            result = 0 /* ES3 */;
+            result = ts.ScriptTarget.ES3;
         }
         else if (temp == 'es5') {
-            result = 1 /* ES5 */;
+            result = ts.ScriptTarget.ES5;
         }
         else if (temp == "es6") {
-            result = 2 /* ES6 */;
+            result = ts.ScriptTarget.ES2015;
         }
     }
     return result;
 }
 function prepareModule(opt) {
-    var result = 0 /* None */;
+    var result = ts.ModuleKind.None;
     if (opt.module) {
         var temp = (opt.module + "").toLowerCase();
         if (temp === "commonjs" || temp === "node") {
-            result = 1 /* CommonJS */;
+            result = ts.ModuleKind.CommonJS;
         }
         else if (temp === "amd") {
-            result = 2 /* AMD */;
+            result = ts.ModuleKind.AMD;
         }
         else if (temp === "system") {
-            result = 4 /* System */;
+            result = ts.ModuleKind.System;
         }
         else if (temp === "umd") {
-            result = 3 /* UMD */;
+            result = ts.ModuleKind.UMD;
         }
     }
     return result;
@@ -142,10 +145,10 @@ function prepareNewLine(opt) {
     if (opt.newLine) {
         var temp = (opt.newLine + "").toLowerCase();
         if (temp === "crlf") {
-            result = 0 /* CarriageReturnLineFeed */;
+            result = ts.NewLineKind.CarriageReturnLineFeed;
         }
         else if (temp === "lf") {
-            result = 1 /* LineFeed */;
+            result = ts.NewLineKind.LineFeed;
         }
     }
     return result;
@@ -172,8 +175,8 @@ function prepareGenerateTsConfig(opt) {
 }
 function prepareJsx(opt) {
     var jsx = (opt.jsx + "").toLowerCase();
-    return jsx === "react" ? 2 /* React */ :
-        jsx === "preserve" ? 1 /* Preserve */ : undefined;
+    return jsx === "react" ? ts.JsxEmit.React :
+        jsx === "preserve" ? ts.JsxEmit.Preserve : undefined;
 }
 function createGruntOption(source, grunt, gruntFile, logger) {
     var dest = util.normalizePath(gruntFile.dest || ""), singleFile = !!dest && _path.extname(dest) === ".js", targetVersion = prepareTarget(source), basePath = checkBasePath(source), rootDir = util.isStr(source.rootDir) ? source.rootDir : undefined, keepDirectoryHierarchy = boolOrUndef(source, "keepDirectoryHierarchy");
@@ -196,7 +199,7 @@ function createGruntOption(source, grunt, gruntFile, logger) {
         }
         target = target.map(function (item) {
             if (item === "lib.core.d.ts" || item === "core") {
-                return util.combinePaths(binPath, targetVersion === 2 /* ES6 */ ? "lib.core.es6.d.ts" : "lib.core.d.ts");
+                return util.combinePaths(binPath, targetVersion === ts.ScriptTarget.ES2015 ? "lib.core.es6.d.ts" : "lib.core.d.ts");
             }
             if (item === "lib.dom.d.ts" || item === "dom") {
                 return util.combinePaths(binPath, "lib.dom.d.ts");
@@ -249,7 +252,8 @@ function createGruntOption(source, grunt, gruntFile, logger) {
             inlineSourceMap: boolOrUndef(source, "inlineSourceMap"),
             inlineSources: boolOrUndef(source, "inlineSources"),
             noEmitHelpers: boolOrUndef(source, "noEmitHelpers"),
-            jsx: prepareJsx(source)
+            jsx: prepareJsx(source),
+            experimentalAsyncFunctions: boolOrUndef(source, "experimentalAsyncFunctions")
         }
     };
     logger.verbose("--option");

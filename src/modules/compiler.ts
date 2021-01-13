@@ -2,7 +2,6 @@
 ///<reference path="../../typings/node.d.ts" />
 ///<reference path="../../typings/grunt.d.ts" />
 ///<reference path="./util.ts" />
-///<reference path="../../typings/bluebird.d.ts" />
 ///<reference path="./task.ts" />
 ///<reference path="./watcher.ts" />
 
@@ -11,8 +10,9 @@ import * as gts from "./task";
 import * as util from "./util";
 import * as watche from "./watcher";
 import * as Promise from "bluebird";
+import {Diagnostic} from "typescript";
 
-let _os: NodeJS.OS = require("os");
+let _os = require("os");
 
 export function execute(task: gts.Task): Promise<any> {
 	
@@ -140,7 +140,7 @@ function compile(task: gts.Task): boolean{
 	let program = ts.createProgram(targetFiles, options.tsOptions, host);
 	let diagnostics = program.getSyntacticDiagnostics();
     
-	reportDiagnostics(diagnostics);
+	reportDiagnostics(<Diagnostic[]>diagnostics);
 	
 	if(diagnostics.length){
 		return false;
@@ -148,11 +148,11 @@ function compile(task: gts.Task): boolean{
 	
 	if (diagnostics.length === 0) {
         diagnostics = program.getGlobalDiagnostics();
-        reportDiagnostics(diagnostics);
+        reportDiagnostics(<Diagnostic[]>diagnostics);
 
         if (diagnostics.length === 0) {
             diagnostics = program.getSemanticDiagnostics();
-            reportDiagnostics(diagnostics);
+            reportDiagnostics(<Diagnostic[]>diagnostics);
         }
     }
 	if(diagnostics.length){
@@ -166,7 +166,7 @@ function compile(task: gts.Task): boolean{
 	
 	task.verbose("- emit");
 	let emitOutput = program.emit();
-    reportDiagnostics(emitOutput.diagnostics);
+    reportDiagnostics(<Diagnostic[]>emitOutput.diagnostics);
 	
 	if(emitOutput.diagnostics.length){
 		return false;
@@ -245,7 +245,7 @@ function writeTsConfig(options: gts.CompilerOptions, targetFiles: string[], logg
             noResolve: tsOpts.noResolve,
             target: tsOpts.target === ts.ScriptTarget.ES3 ? "es3" :
 					tsOpts.target === ts.ScriptTarget.ES5 ? "es5" :
-					tsOpts.target === ts.ScriptTarget.ES6 ? "es6" : undefined,
+					tsOpts.target === ts.ScriptTarget.ES2015 ? "es6" : undefined,
             rootDir: tsOpts.rootDir,
             module: tsOpts.module === ts.ModuleKind.AMD ? "amd" :
 					tsOpts.module === ts.ModuleKind.CommonJS ? "commonjs" : 

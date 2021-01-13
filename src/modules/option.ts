@@ -131,7 +131,7 @@ function prepareTarget(opt: any): ts.ScriptTarget{
         } else if (temp == 'es5') {
             result = ts.ScriptTarget.ES5;
         } else if(temp == "es6") {
-            result = ts.ScriptTarget.ES6;
+            result = ts.ScriptTarget.ES2015;
         }
     }
     return result;
@@ -228,7 +228,7 @@ export function createGruntOption(source: any, grunt: IGrunt, gruntFile: grunt.f
         target = target.map((item) => {
             if(item === "lib.core.d.ts" || item === "core"){
                 return util.combinePaths(binPath,
-                    targetVersion === ts.ScriptTarget.ES6 ? "lib.core.es6.d.ts" : "lib.core.d.ts");
+                    targetVersion === ts.ScriptTarget.ES2015 ? "lib.core.es6.d.ts" : "lib.core.d.ts");
             }
             if(item === "lib.dom.d.ts" || item === "dom"){
                 return util.combinePaths(binPath, "lib.dom.d.ts");

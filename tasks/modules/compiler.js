@@ -1,10 +1,12 @@
+"use strict";
 ///<reference path="../../typings/typescript.d.ts" />
 ///<reference path="../../typings/node.d.ts" />
 ///<reference path="../../typings/grunt.d.ts" />
 ///<reference path="./util.ts" />
-///<reference path="../../typings/bluebird.d.ts" />
 ///<reference path="./task.ts" />
 ///<reference path="./watcher.ts" />
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.execute = void 0;
 var ts = require("typescript");
 var util = require("./util");
 var watche = require("./watcher");
@@ -160,8 +162,8 @@ function reportDiagnostic(diagnostic, isWarn) {
 }
 function reportDiagnostics(diagnostics, isWarn) {
     if (isWarn === void 0) { isWarn = false; }
-    for (var _i = 0; _i < diagnostics.length; _i++) {
-        var d = diagnostics[_i];
+    for (var _i = 0, diagnostics_1 = diagnostics; _i < diagnostics_1.length; _i++) {
+        var d = diagnostics_1[_i];
         reportDiagnostic(d, isWarn);
     }
 }
@@ -186,20 +188,20 @@ function writeTsConfig(options, targetFiles, logger) {
             noLib: tsOpts.noLib,
             noImplicitAny: tsOpts.noImplicitAny,
             noResolve: tsOpts.noResolve,
-            target: tsOpts.target === 0 /* ES3 */ ? "es3" :
-                tsOpts.target === 1 /* ES5 */ ? "es5" :
-                    tsOpts.target === 2 /* ES6 */ ? "es6" : undefined,
+            target: tsOpts.target === ts.ScriptTarget.ES3 ? "es3" :
+                tsOpts.target === ts.ScriptTarget.ES5 ? "es5" :
+                    tsOpts.target === ts.ScriptTarget.ES2015 ? "es6" : undefined,
             rootDir: tsOpts.rootDir,
-            module: tsOpts.module === 2 /* AMD */ ? "amd" :
-                tsOpts.module === 1 /* CommonJS */ ? "commonjs" :
-                    tsOpts.module === 4 /* System */ ? "system" :
-                        tsOpts.module === 3 /* UMD */ ? "umd" : undefined,
+            module: tsOpts.module === ts.ModuleKind.AMD ? "amd" :
+                tsOpts.module === ts.ModuleKind.CommonJS ? "commonjs" :
+                    tsOpts.module === ts.ModuleKind.System ? "system" :
+                        tsOpts.module === ts.ModuleKind.UMD ? "umd" : undefined,
             preserveConstEnums: tsOpts.preserveConstEnums,
             noEmitOnError: tsOpts.noEmitOnError,
             suppressImplicitAnyIndexErrors: tsOpts.suppressImplicitAnyIndexErrors,
             emitDecoratorMetadata: tsOpts.emitDecoratorMetadata,
-            newLine: tsOpts.newLine === 0 /* CarriageReturnLineFeed */ ? "crlf" :
-                tsOpts.newLine === 1 /* LineFeed */ ? "lf" : undefined,
+            newLine: tsOpts.newLine === ts.NewLineKind.CarriageReturnLineFeed ? "crlf" :
+                tsOpts.newLine === ts.NewLineKind.LineFeed ? "lf" : undefined,
             inlineSourceMap: tsOpts.inlineSourceMap,
             inlineSources: tsOpts.inlineSources,
             noEmitHelper: tsOpts.noEmitHelpers

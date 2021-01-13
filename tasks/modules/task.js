@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Task = void 0;
 var option = require("./option");
 var host = require("./host");
 function prepareStackTrace(error, structuredStackTrace) {
     var lines = [];
-    for (var _i = 0; _i < structuredStackTrace.length; _i++) {
-        var trace = structuredStackTrace[_i];
+    for (var _i = 0, structuredStackTrace_1 = structuredStackTrace; _i < structuredStackTrace_1.length; _i++) {
+        var trace = structuredStackTrace_1[_i];
         lines.push((trace.getMethodName() || trace.getFunctionName() || "<anonymous>") + "[L" + trace.getLineNumber() + "] ");
     }
     return lines;
@@ -32,7 +35,7 @@ function getTrace(caller) {
     err.prepareStackTrace = original;
     return stack;
 }
-var Task = (function () {
+var Task = /** @class */ (function () {
     function Task(_grunt, _source, _gruntFile) {
         this._grunt = _grunt;
         this._source = _source;
@@ -62,5 +65,5 @@ var Task = (function () {
         }
     };
     return Task;
-})();
+}());
 exports.Task = Task;

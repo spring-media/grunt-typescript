@@ -1,9 +1,11 @@
+"use strict";
 ///<reference path="../../typings/typescript.d.ts" />
 ///<reference path="../../typings/node.d.ts" />
 ///<reference path="../../typings/grunt.d.ts" />
 ///<reference path="./util.ts" />
-///<reference path="../../typings/bluebird.d.ts" />
 ///<reference path="./task.ts" />
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createHost = void 0;
 var ts = require("typescript");
 var util = require("./util");
 var _path = require("path"), _fs = require("fs"), _os = require("os"), existingDirectories = {};
@@ -64,10 +66,10 @@ function prepareSourcePath(sourceFileName, preparedFileName, contents, options) 
 }
 function getNewLineChar(options) {
     var optValue = options.tsOptions.newLine;
-    if (optValue === 0 /* CarriageReturnLineFeed */) {
+    if (optValue === ts.NewLineKind.CarriageReturnLineFeed) {
         return "\r\n";
     }
-    else if (optValue === 1 /* LineFeed */) {
+    else if (optValue === ts.NewLineKind.LineFeed) {
         return "\n";
     }
     return _os.EOL;
@@ -110,6 +112,9 @@ function createHost(grunt, options, logger) {
         if (result) {
             logger.verbose("  readed");
             sourceFileCache[fullName] = result;
+            //            if(!options.singleFile && options.watch && !options.tsOptions.noEmit){
+            //                newSourceFiles.push(fullName);    
+            //            }   
         }
         return result;
     }
@@ -203,7 +208,7 @@ function createHost(grunt, options, logger) {
         getSourceFile: getSourceFile,
         getDefaultLibFileName: function (options) {
             logger.verbose("bin dir = " + util.getBinDir());
-            return util.combinePaths(util.getBinDir(), options.target === 2 /* ES6 */ ? "lib.es6.d.ts" : "lib.d.ts");
+            return util.combinePaths(util.getBinDir(), options.target === ts.ScriptTarget.ES2015 ? "lib.es6.d.ts" : "lib.d.ts");
         },
         writeFile: writeFile,
         getCurrentDirectory: function () { return util.getCurrentDirectory(); },
