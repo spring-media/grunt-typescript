@@ -3,7 +3,7 @@
   "reviver": "René Baudisch",
   "name": "grunt-typescript",
   "description": "compile typescript to javascript",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "homepage": "https://github.com/spring-media/grunt-typescript",
   "repository": {
     "type": "git",
@@ -27,9 +27,9 @@
     "node": ">= 0.8.0"
   },
   "dependencies": {
-    "typescript": "latest",
     "bluebird": "~2.9.34",
-    "chokidar": "latest"
+    "chokidar": "latest",
+    "typescript": "latest"
   },
   "peerDependencies": {
     "grunt": "latest"
@@ -37,9 +37,8 @@
   "devDependencies": {
     "grunt": "latest",
     "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-nodeunit": "^2.1.0"
+    "grunt-contrib-nodeunit": "^3.0.0"
   },
-  "optionalDependencies": {},
   "keywords": [
     "gruntplugin",
     "typescript"
